@@ -525,6 +525,61 @@ declare namespace Eps {
 		 */
 		url?: string;
 		/**
+		 * 类型
+		 */
+		type?: string;
+		/**
+		 * 文件id
+		 */
+		fileId?: string;
+		/**
+		 * 文件名
+		 */
+		name?: string;
+		/**
+		 * 文件大小
+		 */
+		size?: number;
+		/**
+		 * 文件位置
+		 */
+		key?: string;
+		/**
+		 * 创建时间
+		 */
+		createTime?: Date;
+		/**
+		 * 更新时间
+		 */
+		updateTime?: Date;
+		/**
+		 * 任意键值
+		 */
+		[key: string]: any;
+	}
+
+	interface ImagesTagsBaseData {
+		/**
+		 * ID
+		 */
+		id?: number;
+		/**
+		 * 父分类ID
+		 */
+		parentId?: number;
+		/**
+		 * name
+		 */
+		name?: string;
+		/**
+		 * color
+		 */
+		color?: string;
+		/**
+		 * icon
+		 */
+		icon?: string;
+		/**
 		 * 创建时间
 		 */
 		createTime?: Date;
@@ -2018,6 +2073,63 @@ declare namespace Eps {
 		request: Service["request"];
 	}
 
+	interface ImageTags {
+		/**
+		 * 删除
+		 */
+		delete(data?: any): Promise<any>;
+		/**
+		 * 修改
+		 */
+		update(data?: any): Promise<any>;
+		/**
+		 * 单个信息
+		 */
+		info(data?: any): Promise<ImagesTagsBaseData>;
+		/**
+		 * 列表查询
+		 */
+		list(data?: any): Promise<ImagesTagsBaseData[]>;
+		/**
+		 * 分页查询
+		 */
+		page(data?: any): Promise<{
+			pagination: { size: number; page: number; total: number };
+			list: ImagesTagsBaseData[];
+			[key: string]: any;
+		}>;
+		/**
+		 * 新增
+		 */
+		add(data?: any): Promise<any>;
+		/**
+		 * 权限标识
+		 */
+		permission: {
+			delete: string;
+			update: string;
+			info: string;
+			list: string;
+			page: string;
+			add: string;
+		};
+		/**
+		 * 权限状态
+		 */
+		_permission: {
+			delete: boolean;
+			update: boolean;
+			info: boolean;
+			list: boolean;
+			page: boolean;
+			add: boolean;
+		};
+		/**
+		 * 请求
+		 */
+		request: Service["request"];
+	}
+
 	interface IotDevice {
 		/**
 		 * 删除
@@ -2548,7 +2660,7 @@ declare namespace Eps {
 		cloud: { db: CloudDb; func: { info: CloudFuncInfo; log: CloudFuncLog } };
 		demo: { goods: DemoGoods };
 		dict: { info: DictInfo; type: DictType };
-		image: { image: ImageImage };
+		image: { image: ImageImage; tags: ImageTags };
 		iot: { device: IotDevice; message: IotMessage; mqtt: IotMqtt };
 		recycle: { data: RecycleData };
 		space: { info: SpaceInfo; type: SpaceType };

@@ -9,7 +9,7 @@ export const isDev = import.meta.env.MODE === "development";
 export const config: Config = {
 	// 项目信息
 	app: {
-		name: "COOL-ADMIN",
+		name: "CZH试验田",
 
 		// 菜单
 		menu: {
