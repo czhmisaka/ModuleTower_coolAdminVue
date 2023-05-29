@@ -511,6 +511,57 @@ declare namespace Eps {
 		[key: string]: any;
 	}
 
+	interface ImageAlbumEntity {
+		/**
+		 * ID
+		 */
+		id?: number;
+		/**
+		 * 相册id
+		 */
+		albumId?: string;
+		/**
+		 * 图片数量
+		 */
+		picNum?: number;
+		/**
+		 * 权限级别 0-公开 1-私有
+		 */
+		permission?: number;
+		/**
+		 * 名称
+		 */
+		name?: string;
+		/**
+		 * 详细说明
+		 */
+		description?: string;
+		/**
+		 * 相册分类
+		 */
+		category?: string;
+		/**
+		 * 相册管理用户
+		 */
+		manager?: string;
+		/**
+		 * 相册可观看用户列表
+		 */
+		viewerList?: json;
+		/**
+		 * 创建时间
+		 */
+		createTime?: Date;
+		/**
+		 * 更新时间
+		 */
+		updateTime?: Date;
+		/**
+		 * 任意键值
+		 */
+		[key: string]: any;
+	}
+
 	interface ImageBaseData {
 		/**
 		 * ID
@@ -2016,6 +2067,126 @@ declare namespace Eps {
 		request: Service["request"];
 	}
 
+	interface ImageAlbum {
+		/**
+		 * 删除
+		 */
+		delete(data?: any): Promise<any>;
+		/**
+		 * 修改
+		 */
+		update(data?: any): Promise<any>;
+		/**
+		 * 单个信息
+		 */
+		info(data?: any): Promise<ImageAlbumEntity>;
+		/**
+		 * 列表查询
+		 */
+		list(data?: any): Promise<ImageAlbumEntity[]>;
+		/**
+		 * 分页查询
+		 */
+		page(data?: any): Promise<{
+			pagination: { size: number; page: number; total: number };
+			list: ImageAlbumEntity[];
+			[key: string]: any;
+		}>;
+		/**
+		 * 新增
+		 */
+		add(data?: any): Promise<any>;
+		/**
+		 * 权限标识
+		 */
+		permission: {
+			delete: string;
+			update: string;
+			info: string;
+			list: string;
+			page: string;
+			add: string;
+		};
+		/**
+		 * 权限状态
+		 */
+		_permission: {
+			delete: boolean;
+			update: boolean;
+			info: boolean;
+			list: boolean;
+			page: boolean;
+			add: boolean;
+		};
+		/**
+		 * 请求
+		 */
+		request: Service["request"];
+	}
+
+	interface ImageAlbum {
+		/**
+		 * 获取该相册下的图片列表
+		 */
+		getImage(data?: any): Promise<any>;
+		/**
+		 * list
+		 */
+		list(data?: any): Promise<any[]>;
+		/**
+		 * page
+		 */
+		page(data?: any): Promise<{
+			pagination: { size: number; page: number; total: number };
+			list: any[];
+			[key: string]: any;
+		}>;
+		/**
+		 * info
+		 */
+		info(data?: any): Promise<any>;
+		/**
+		 * update
+		 */
+		update(data?: any): Promise<any>;
+		/**
+		 * delete
+		 */
+		delete(data?: any): Promise<any>;
+		/**
+		 * add
+		 */
+		add(data?: any): Promise<any>;
+		/**
+		 * 权限标识
+		 */
+		permission: {
+			getImage: string;
+			list: string;
+			page: string;
+			info: string;
+			update: string;
+			delete: string;
+			add: string;
+		};
+		/**
+		 * 权限状态
+		 */
+		_permission: {
+			getImage: boolean;
+			list: boolean;
+			page: boolean;
+			info: boolean;
+			update: boolean;
+			delete: boolean;
+			add: boolean;
+		};
+		/**
+		 * 请求
+		 */
+		request: Service["request"];
+	}
+
 	interface ImageImage {
 		/**
 		 * 删除
@@ -2066,6 +2237,93 @@ declare namespace Eps {
 			list: boolean;
 			page: boolean;
 			add: boolean;
+		};
+		/**
+		 * 请求
+		 */
+		request: Service["request"];
+	}
+
+	interface ImageFile {
+		/**
+		 * 用户信息
+		 */
+		users(data?: any): Promise<any>;
+		/**
+		 * 上传完成后，回调通知上传结果
+		 */
+		complete(data?: any): Promise<any>;
+		/**
+		 * 准备上传阶段
+		 */
+		prepare(data?: any): Promise<any>;
+		/**
+		 * 获取上传地址
+		 */
+		address(data?: any): Promise<any>;
+		/**
+		 * 文件上传
+		 */
+		upload(data?: any): Promise<any>;
+		/**
+		 * 获取图片信息
+		 */
+		id(data?: any): Promise<any>;
+		/**
+		 * list
+		 */
+		list(data?: any): Promise<any[]>;
+		/**
+		 * page
+		 */
+		page(data?: any): Promise<{
+			pagination: { size: number; page: number; total: number };
+			list: any[];
+			[key: string]: any;
+		}>;
+		/**
+		 * info
+		 */
+		info(data?: any): Promise<any>;
+		/**
+		 * update
+		 */
+		update(data?: any): Promise<any>;
+		/**
+		 * delete
+		 */
+		delete(data?: any): Promise<any>;
+		/**
+		 * 权限标识
+		 */
+		permission: {
+			users: string;
+			complete: string;
+			prepare: string;
+			address: string;
+			upload: string;
+			id: string;
+			list: string;
+			page: string;
+			info: string;
+			update: string;
+			delete: string;
+		};
+		/**
+		 * 权限状态
+		 */
+		_permission: {
+			users: boolean;
+			complete: boolean;
+			prepare: boolean;
+			address: boolean;
+			upload: boolean;
+			id: boolean;
+			list: boolean;
+			page: boolean;
+			info: boolean;
+			update: boolean;
+			delete: boolean;
 		};
 		/**
 		 * 请求
@@ -2660,7 +2918,13 @@ declare namespace Eps {
 		cloud: { db: CloudDb; func: { info: CloudFuncInfo; log: CloudFuncLog } };
 		demo: { goods: DemoGoods };
 		dict: { info: DictInfo; type: DictType };
-		image: { image: ImageImage; tags: ImageTags };
+		image: {
+			album: ImageAlbum;
+			Album: ImageAlbum;
+			image: ImageImage;
+			File: ImageFile;
+			tags: ImageTags;
+		};
 		iot: { device: IotDevice; message: IotMessage; mqtt: IotMqtt };
 		recycle: { data: RecycleData };
 		space: { info: SpaceInfo; type: SpaceType };
