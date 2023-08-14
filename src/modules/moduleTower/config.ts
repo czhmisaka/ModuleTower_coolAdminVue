@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-05-25 13:30:40
  * @LastEditors: CZH
- * @LastEditTime: 2023-08-14 16:52:41
+ * @LastEditTime: 2023-08-14 18:08:27
  * @FilePath: /cool-admin-vue/src/modules/moduleTower/config.ts
  */
 import { ModuleConfig } from "/@/cool";

@@ -1,13 +1,13 @@
 <!--
  * @Date: 2023-05-25 13:30:40
  * @LastEditors: CZH
- * @LastEditTime: 2023-08-14 16:06:48
+ * @LastEditTime: 2023-08-14 17:58:41
  * @FilePath: /cool-admin-vue/src/modules/moduleTower/views/index.vue
 -->
 <template>
   <div
     :style="{
-      width: 'calc(100% - 24px)',
+      width: 'calc(100%)',
       height: 'calc(100%)',
       background: 'rgba(0,0,0,0)',
       overflow: 'hidden',

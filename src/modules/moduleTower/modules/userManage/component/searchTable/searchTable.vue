@@ -1,8 +1,8 @@
 <!--
  * @Date: 2022-11-09 19:26:59
  * @LastEditors: CZH
- * @LastEditTime: 2023-04-08 19:48:57
- * @FilePath: /configforpagedemo/src/modules/userManage/component/searchTable/searchTable.vue
+ * @LastEditTime: 2023-08-14 18:00:30
+ * @FilePath: /cool-admin-vue/src/modules/moduleTower/modules/userManage/component/searchTable/searchTable.vue
 -->
 <template>
   <cardBg
@@ -129,7 +129,7 @@ export default defineComponent({
   baseProps: {
     autoSearch: false,
     defaultQuery: { helloworld: "hello world" },
-    searchFunc: (data) => {
+    searchFunc: (data: any) => {
       return [data];
     },
     showItemTemplate: [tableCellTemplateMaker("HELLO WORLD", "helloworld")],
@@ -178,12 +178,12 @@ export default defineComponent({
       isReady: false,
 
       // 当前选择项
-      selectedList: [],
+      selectedList: [] as any[],
 
       // 计算列表可用高度
       TableHeight: 500,
 
-      interval: null,
+      interval: null as any,
       baseDataForCheck: {},
     };
   },

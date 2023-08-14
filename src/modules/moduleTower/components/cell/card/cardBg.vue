@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-05-18 23:06:49
  * @LastEditors: CZH
- * @LastEditTime: 2023-05-28 11:36:59
+ * @LastEditTime: 2023-08-14 18:04:04
  * @FilePath: /cool-admin-vue/src/modules/moduleTower/components/cell/card/cardBg.vue
 -->
 
@@ -30,6 +30,7 @@ export default defineComponent({
         {
           class: isDark.value ? "" : "shadow_bg",
           style: {
+            boxSizing: "border-box",
             width: "100%",
             height: "100%",
             background: isDark.value ? "#020409" : "#FFFFFF",

@@ -4,6 +4,7 @@ import { createModule } from "./module";
 import { createEps } from "./eps";
 import { router } from "../router";
 import { Loading } from "../utils";
+import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
 export async function bootstrap(app: App) {
 	// pinia
@@ -14,6 +15,10 @@ export async function bootstrap(app: App) {
 
 	// 模块
 	const { eventLoop } = createModule(app);
+
+	for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+		app.component(key, component);
+	}
 
 	// eps
 	await createEps();

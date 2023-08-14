@@ -1,7 +1,7 @@
 <!--
  * @Date: 2022-04-28 21:57:48
  * @LastEditors: CZH
- * @LastEditTime: 2023-05-29 09:53:57
+ * @LastEditTime: 2023-08-14 20:10:18
  * @FilePath: /cool-admin-vue/src/modules/moduleTower/components/grid/gridDesktop.vue
 -->
 
@@ -522,12 +522,12 @@ export default defineComponent({
         that.$forceUpdate();
         that.updateTimes++;
         if (that.updateTimes > 99999) that.updateTimes = -11111;
+        that.componentBoxInfo = {
+          width: width,
+          height: height,
+        };
       }
-      that.componentBoxInfo = {
-        width: width,
-        height: height,
-      };
-    }, 500);
+    }, 300);
   },
 
   unmounted() {
