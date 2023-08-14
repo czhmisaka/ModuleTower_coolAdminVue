@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-05-06 09:09:06
  * @LastEditors: CZH
- * @LastEditTime: 2023-05-28 13:33:52
+ * @LastEditTime: 2023-06-19 18:09:22
  * @FilePath: /cool-admin-vue/src/modules/moduleTower/components/grid/module/gridCard/module/componentLists.ts
  */
 import { defineAsyncComponent } from "vue";
@@ -14,7 +14,10 @@ import {
 
 export const componentLists: { [key: string]: CardComponentTemplate } = {
 	iframe: cardComponentMaker(
-		defineAsyncComponent(() => import("@/components/basicComponents/cell/info/iframe.vue")),
+		defineAsyncComponent(
+			// () => import("/$/moduleTower/components/basicComponents/cell/info/iframe.vue")
+			() => import("/$/moduleTower/components/cell/info/iframe.vue")
+		),
 		{
 			url: {
 				label: "网页链接",

@@ -1,12 +1,12 @@
 /*
  * @Date: 2022-04-29 14:11:20
  * @LastEditors: CZH
- * @LastEditTime: 2023-05-29 09:55:27
+ * @LastEditTime: 2023-08-14 17:04:19
  * @FilePath: /cool-admin-vue/src/modules/moduleTower/utils/util.ts
  */
 import { CardComponentTemplate } from "../components/grid/module/dataTemplate";
 import { stringAnyObj } from "../modules/userManage/types";
-const Layout = () => import("@/layout/index.vue");
+// const Layout = () => import("@/layout/index.vue");
 
 // 函数执行时间计算
 const timeChecker = class {
@@ -67,6 +67,7 @@ export interface modulesCellTemplate {
 	name: string;
 	path: string;
 	routers: any[];
+	pageMap: stringAnyObj;
 	components: CardComponentTemplate[];
 	output?: { [key: string]: any };
 	children?: { [key: string]: any }[];
@@ -106,7 +107,7 @@ export const getModuleFromView_Import = (init = false) => {
  * @Date: 2022-10-23 21:51:34
  * @param {*} basePath
  */
-export const getModuleFromView = (init = false) => {
+export const getModuleFromView = async (init = false) => {
 	const timec = new timeChecker("getModuleFromView");
 	if (!init) {
 		timec.getTime(1);
@@ -116,13 +117,16 @@ export const getModuleFromView = (init = false) => {
 	// 如果你找到了这里的 require.context 搜索出了问题，先看一下是不是出现了空文件夹，如有则删除。  -- czh 20221109
 	// 感谢自己，表现形式可能为 undifined files -- czh 20230116
 	// again ，可能需要做一个更好的提示信息 -- czh 20230209
+	// fuck 迁移这种规模的代码都有点困难 -- czh 20230618
+	// 好消息，现在我们改成了import(试图) -- czh 20230706
 	moduleList = [] as modulesCellTemplate[];
-	const requireModule = require.context("@/modules/", true, /.\.ts|\.vue/g);
-	const requireList = requireModule.keys() as string[];
-
+	const importModule = import.meta.glob("../modules/**", {});
+	const requireList = Object.keys(importModule) as string[];
+	const requireModule = async (fileName: string): Promise<any> => {
+		return await importModule[fileName]();
+	};
 	// 文档路径
 	const pageConfigData = "PageConfigData/index.ts";
-	const pageConfigEnv = "PageConfigData";
 	const component = "component/index.ts";
 	const mainPage = "Index.vue";
 	const output = "output.ts";
@@ -136,7 +140,8 @@ export const getModuleFromView = (init = false) => {
 	 * @param {string} fileName
 	 */
 	function getModuleName(fileName: string): string {
-		return fileName.split("./")[1].split("/")[0];
+		console.log(fileName.split("../modules/")[1].split("/")[0], "getModuleName");
+		return fileName.split("../modules/")[1].split("/")[0];
 	}
 
 	/**
@@ -146,7 +151,8 @@ export const getModuleFromView = (init = false) => {
 	 * @Date: 2022-11-07 14:53:40
 	 * @param {string} fileName
 	 */
-	function getDealName(fileName: string, len: number = 3): string {
+
+	function getDealName(fileName: string, len: number = 4): string {
 		return fileName.split("/").length < len
 			? ""
 			: fileName
@@ -186,12 +192,15 @@ export const getModuleFromView = (init = false) => {
 
 	// 处理获取到模块，构建基础的模块列表
 	dealRequireList(
-		(dealName, len) => dealName == mainPage && len == 3,
+		(dealName, len) => {
+			console.log(dealName, len);
+			return dealName == mainPage && len == 4;
+		},
 		(fileName: string) => {
 			const moduleName = getModuleName(fileName);
 			moduleList.push({
 				name: moduleName,
-				path: `@/modules/${moduleName}/`,
+				path: `../modules/${moduleName}/`,
 				routers: [
 					routerCellMaker(
 						`/${moduleName}`,
@@ -201,6 +210,7 @@ export const getModuleFromView = (init = false) => {
 						[]
 					)
 				],
+				pageMap: {},
 				baseInfo: { info: "" },
 				output: {},
 				children: [],
@@ -211,12 +221,13 @@ export const getModuleFromView = (init = false) => {
 
 	// 处理outPut文件
 	dealRequireList(
-		(dealName, len) => dealName == output && len == 3,
+		(dealName, len) => dealName == output && len == 4,
 		(fileName: string) => {
 			const moduleName = getModuleName(fileName);
-			moduleList.map((module: modulesCellTemplate) => {
+			moduleList.map(async (module: modulesCellTemplate) => {
 				if (module.name == moduleName) {
-					const output = requireModule(fileName);
+					const output = (await importModule[fileName]()) as stringAnyObj;
+					console.log(output, "output");
 					if (output["output"]) module.output = output["output"];
 					if (output["moduleInfo"]) {
 						const moduleInfo = output["moduleInfo"];
@@ -240,9 +251,9 @@ export const getModuleFromView = (init = false) => {
 		(dealName, len) => dealName == component,
 		(fileName: string) => {
 			const moduleName = getModuleName(fileName);
-			moduleList.map((module: modulesCellTemplate) => {
+			moduleList.map(async (module: modulesCellTemplate) => {
 				if (module.name == moduleName) {
-					module.components = requireModule(fileName).default;
+					module.components = await (await requireModule(fileName)).default();
 				}
 				return module;
 			});
@@ -254,9 +265,12 @@ export const getModuleFromView = (init = false) => {
 		(dealName, len) => dealName == pageConfigData,
 		(fileName: string) => {
 			const moduleName = getModuleName(fileName);
-			moduleList.map((module: modulesCellTemplate) => {
+			moduleList.map(async (module: modulesCellTemplate) => {
 				if (module.name == moduleName) {
-					const pageMap = requireModule(fileName)["PageConfig"];
+					const pageMap = (await requireModule(fileName))["PageConfig"];
+					for (let x in pageMap) {
+						module.pageMap[x] = pageMap[x];
+					}
 					Object.keys(pageMap).map((pageName: string) => {
 						module.routers[0].children.push(
 							routerCellMaker(
@@ -290,9 +304,12 @@ export const getModuleFromView = (init = false) => {
 		(dealName, len) => dealName == router,
 		(fileName: string) => {
 			const moduleName = getModuleName(fileName);
-			moduleList.map((module: modulesCellTemplate) => {
+			moduleList.map(async (module: modulesCellTemplate) => {
 				if (module.name == moduleName) {
-					module.routers = [...module.routers, ...requireModule(fileName).default];
+					module.routers = [
+						...module.routers,
+						...(await requireModule(fileName)).default
+					];
 				}
 				return module;
 			});
@@ -331,7 +348,7 @@ export const getModuleFromView = (init = false) => {
 	// 获取所有模块包的 插入式能力组件
 	moduleList["getAllPluginComponent"] = () => {
 		let back = {};
-		moduleList.map((module) => {
+		moduleList.map((module: any) => {
 			if (module.output.CardApiInjectComponent) {
 				for (let componentName in module.output.CardApiInjectComponent) {
 					back[`${module.name}_${componentName}`] =
@@ -345,7 +362,7 @@ export const getModuleFromView = (init = false) => {
 	// 获取所有模块包的 插入式 onChange能力
 	moduleList["getModuleApi"] = () => {
 		let back = {};
-		moduleList.map((module) => {
+		moduleList.map((module: any) => {
 			if (module.output.moduleApi) {
 				for (let apiName in module.output.moduleApi) {
 					back[`${module.name}_${apiName}`] = module.output.moduleApi[apiName];
@@ -355,6 +372,11 @@ export const getModuleFromView = (init = false) => {
 		return back;
 	};
 	timec.getTime(2);
+	await new Promise((res) => {
+		setTimeout(() => {
+			res(true);
+		}, 1000);
+	});
 	return moduleList;
 };
 
@@ -384,6 +406,7 @@ export const getAction = () => {
 	// 获取所有模块包的组件
 	action["getAllComponents"] = () => {
 		let back = {};
+		console.log(moduleList, "moduleList");
 		moduleList.map((module: modulesCellTemplate) => {
 			back = {
 				...back,
@@ -396,7 +419,7 @@ export const getAction = () => {
 	// 获取所有模块包的 插入式能力组件
 	action["getAllPluginComponent"] = () => {
 		let back = {};
-		moduleList.map((module) => {
+		moduleList.map((module: any) => {
 			if (module.output.CardApiInjectComponent) {
 				for (let componentName in module.output.CardApiInjectComponent) {
 					back[`${module.name}_${componentName}`] =
@@ -410,7 +433,7 @@ export const getAction = () => {
 	// 获取所有模块包的 插入式 onChange能力
 	action["getModuleApi"] = () => {
 		let back = {};
-		moduleList.map((module) => {
+		moduleList.map((module: any) => {
 			if (module.output.moduleApi) {
 				for (let apiName in module.output.moduleApi) {
 					back[`${module.name}_${apiName}`] = module.output.moduleApi[apiName];
@@ -426,7 +449,7 @@ export const getAction = () => {
 export const baseModuleRouter: any = {
 	path: "/desktop",
 	name: "modules",
-	component: Layout,
+	// component: Layout,
 	redirect: "/desktop/",
 	meta: {
 		icon: "bxs:package",

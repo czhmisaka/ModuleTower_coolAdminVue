@@ -1,12 +1,12 @@
 <!--
  * @Date: 2022-04-29 15:02:20
  * @LastEditors: CZH
- * @LastEditTime: 2022-10-26 12:53:50
- * @FilePath: /configforpagedemo/src/components/basicComponents/grid/module/gridCard/card.vue
+ * @LastEditTime: 2023-06-19 16:16:34
+ * @FilePath: /cool-admin-vue/src/modules/moduleTower/components/grid/module/gridCard/card.vue
 -->
 <script lang="ts">
 import cardBox from "./module/cardBox.vue";
-import { getIcon } from "@/utils";
+import { getIcon } from "../../../../utils/resource/icon";
 import { defineComponent, h, watch, toRefs, ref, getCurrentInstance } from "vue";
 import {
   componentGetter,

@@ -1,11 +1,12 @@
 /*
  * @Date: 2023-05-25 13:30:40
  * @LastEditors: CZH
- * @LastEditTime: 2023-05-25 13:52:45
+ * @LastEditTime: 2023-08-14 16:52:41
  * @FilePath: /cool-admin-vue/src/modules/moduleTower/config.ts
  */
 import { ModuleConfig } from "/@/cool";
 import { useDict } from "./index";
+import { getModuleFromView } from "./utils/util";
 
 export default (): ModuleConfig => {
 	return {

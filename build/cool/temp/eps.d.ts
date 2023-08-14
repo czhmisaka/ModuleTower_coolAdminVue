@@ -757,6 +757,41 @@ declare namespace Eps {
 		[key: string]: any;
 	}
 
+	interface ScheduleEntity {
+		/**
+		 * ID
+		 */
+		id?: number;
+		/**
+		 * 日程名称
+		 */
+		name?: string;
+		/**
+		 * 展示图片
+		 */
+		url?: string;
+		/**
+		 * 详情
+		 */
+		dēscription?: string;
+		/**
+		 * 结束时间
+		 */
+		endTime?: Date;
+		/**
+		 * 创建时间
+		 */
+		createTime?: Date;
+		/**
+		 * 更新时间
+		 */
+		updateTime?: Date;
+		/**
+		 * 任意键值
+		 */
+		[key: string]: any;
+	}
+
 	interface SpaceInfoEntity {
 		/**
 		 * ID
@@ -2634,6 +2669,63 @@ declare namespace Eps {
 		request: Service["request"];
 	}
 
+	interface ScheduleSchedule {
+		/**
+		 * 删除
+		 */
+		delete(data?: any): Promise<any>;
+		/**
+		 * 修改
+		 */
+		update(data?: any): Promise<any>;
+		/**
+		 * 单个信息
+		 */
+		info(data?: any): Promise<ScheduleEntity>;
+		/**
+		 * 列表查询
+		 */
+		list(data?: any): Promise<ScheduleEntity[]>;
+		/**
+		 * 分页查询
+		 */
+		page(data?: any): Promise<{
+			pagination: { size: number; page: number; total: number };
+			list: ScheduleEntity[];
+			[key: string]: any;
+		}>;
+		/**
+		 * 新增
+		 */
+		add(data?: any): Promise<any>;
+		/**
+		 * 权限标识
+		 */
+		permission: {
+			delete: string;
+			update: string;
+			info: string;
+			list: string;
+			page: string;
+			add: string;
+		};
+		/**
+		 * 权限状态
+		 */
+		_permission: {
+			delete: boolean;
+			update: boolean;
+			info: boolean;
+			list: boolean;
+			page: boolean;
+			add: boolean;
+		};
+		/**
+		 * 请求
+		 */
+		request: Service["request"];
+	}
+
 	interface SpaceInfo {
 		/**
 		 * 获得WPS配置
@@ -2927,6 +3019,7 @@ declare namespace Eps {
 		};
 		iot: { device: IotDevice; message: IotMessage; mqtt: IotMqtt };
 		recycle: { data: RecycleData };
+		schedule: { schedule: ScheduleSchedule };
 		space: { info: SpaceInfo; type: SpaceType };
 		task: { info: TaskInfo };
 		user: { info: UserInfo };

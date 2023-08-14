@@ -1,15 +1,15 @@
 <!--
  * @Date: 2022-11-11 10:18:58
  * @LastEditors: CZH
- * @LastEditTime: 2023-05-15 17:13:45
- * @FilePath: /configforpagedemo/src/modules/userManage/component/searchTable/infoTable.vue
+ * @LastEditTime: 2023-08-14 17:13:02
+ * @FilePath: /cool-admin-vue/src/modules/moduleTower/modules/userManage/component/searchTable/infoTable.vue
 -->
 <template>
   <div ref="tableBox" class="tableBox">
     <ElTable
       ref="tableController"
       :key="fuckKey"
-      :header-cell-style="isDark ? tableHeaderDark : tableHeader"
+      :header-cell-style="tableHeader"
       :data="dataList"
       @selection-change="selectPosition"
       @row-dblclick="cellDblclick"
@@ -118,11 +118,10 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { ElButton, ElPopover, ElTable, ElTableColumn } from "element-plus";
-import { useDark } from "@pureadmin/utils";
 import loading from "element-plus/es/components/loading";
 import tableHeader from "element-plus/es/components/table/src/table-header";
 import { btnCellTemplate, btnActionTemplate, showType, stringAnyObj } from "../../types";
-import { cardOnChangeType } from "@/components/basicComponents/grid/module/dataTemplate";
+import { cardOnChangeType } from "/$/moduleTower/components/grid/module/dataTemplate";
 export default defineComponent({
   components: { ElTable, ElTableColumn },
   props: ["template", "loading", "dataList", "baseData"],
@@ -244,12 +243,7 @@ export default defineComponent({
     },
   },
 
-  setup() {
-    const { isDark } = useDark();
-    return {
-      isDark,
-    };
-  },
+  setup() {},
 });
 </script>
 

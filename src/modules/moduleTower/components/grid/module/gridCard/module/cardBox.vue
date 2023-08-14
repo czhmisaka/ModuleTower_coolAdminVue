@@ -1,8 +1,8 @@
 <!--
  * @Date: 2022-05-05 00:07:38
  * @LastEditors: CZH
- * @LastEditTime: 2022-05-24 21:55:07
- * @FilePath: /configforpagedemo/src/components/basicComponents/grid/module/gridCard/module/cardBox.vue
+ * @LastEditTime: 2023-06-19 18:14:54
+ * @FilePath: /cool-admin-vue/src/modules/moduleTower/components/grid/module/gridCard/module/cardBox.vue
 -->
 
 <template>
@@ -71,7 +71,7 @@ function btnMaker(
   return back;
 }
 
-import iconCell from "@/components/basicComponents/cell/icon/iconCell.vue";
+import iconCell from "/$/moduleTower/components/cell/icon/iconCell.vue";
 
 export default defineComponent({
   components: {

@@ -1,5 +1,5 @@
 
-import { deepMerge } from "@/components/basicComponents/grid/module/cardApi";
+import { deepMerge } from "/$/moduleTower/components/grid/module/cardApi";
 import {
   ElOption,
   ElScrollbar,
@@ -10,18 +10,26 @@ import {
   ElMessage
 } from "element-plus";
 import { defineComponent, h, onMounted, ref, shallowRef, watchEffect } from "vue";
-import { inputElementTemplate, formInputType, stringAnyObj } from "../../types";
-import editor from "@/components/basicComponents/grid/module/baseToolComponents/editor.vue";
-import uploadFileList from "./uploadFileList.vue";
+import { inputElementTemplate, formInputType, stringAnyObj, tableCellTemplate } from "../../types";
+// import uploadFileList from "./uploadFileList.vue";
 import cascader from "./cascader.vue"
 
-import { getDownLoadRequestHeaders } from "@/utils/api/user/header";
 import { ElUpload } from "element-plus";
-import { useRemoteDictHook } from "@/store/modules/remoteDict";
-import { loadEnv } from "@build/index";
+// import { useRemoteDictHook } from "@/store/modules/remoteDict";
+// import { getDownLoadRequestHeaders } from "@/utils/api/user/header";
+// import { getPreUrl } from "@/utils/api/requests";
+import card from "/$/moduleTower/components/grid/module/gridCard/card.vue";
+import { gridCellTemplate } from "/$/moduleTower/components/grid/module/dataTemplate";
+import gridDesktop from "/$/moduleTower/components/grid/gridDesktop.vue";
+import { values } from 'lodash';
 
+interface stringAnyObject {
+  [key: string]: any
+}
 
-function base(cell) {
+function base(
+  cell: tableCellTemplate,
+) {
   return {
     // title: cell.label,
     type: "string",
@@ -34,7 +42,7 @@ function base(cell) {
 }
 
 export const globalBaseCellDeal = (
-  cell,
+  cell: tableCellTemplate,
   cellProperties: stringAnyObj | Promise<stringAnyObj>,
   needTitle: boolean = false
 ): stringAnyObj | Promise<stringAnyObj> => {
@@ -103,7 +111,7 @@ inputElement[formInputType.datePicker] = {
 };
 
 inputElement[formInputType.upload] = {
-  properties: async (that, cell) => {
+  properties: async (that: stringAnyObject, cell: stringAnyObject) => {
     console.log(cell.table, 'ooo')
     let properties = {
       ...base(cell),
@@ -129,9 +137,10 @@ inputElement[formInputType.upload] = {
         },
       }),
       "ui:options": {
-        headers: getDownLoadRequestHeaders(),
+        // headers: getDownLoadRequestHeaders(),
+        headers: {},
         action:
-          cell.input.action || getPreUrl() + "/cult/sysFile/upload",
+          cell.input.action,
       },
     };
     let attrs = {
@@ -155,9 +164,11 @@ inputElement[formInputType.uploadImage] = {
       ...base(cell),
       "ui:widget": "UploadWidget",
       "ui:options": {
-        headers: getDownLoadRequestHeaders(),
+        // headers: getDownLoadRequestHeaders(),
+        headers: {},
         // action: cell.input.action || "/api/web/file/upload",
-        action: cell.input.action || getPreUrl() + "/cult/sysFile/upload",
+        // action: cell.input.action || getPreUrl() + "/cult/sysFile/upload",
+        action: cell.input.action
       },
     };
     let attrs = {
@@ -208,7 +219,7 @@ inputElement[formInputType.idCard] = {
 
 
 inputElement[formInputType.select] = {
-  properties: async (that, cell) => {
+  properties: async (that: stringAnyObject, cell: stringAnyObject) => {
     let properties = base(cell);
     const { input } = cell;
     properties = {
@@ -240,13 +251,13 @@ inputElement[formInputType.select] = {
 };
 
 // inputElement[formInputType.customSelect] = {
-//   properties: async (that, cell) => {
+//   properties: async (that:stringAnyObject, cell:stringAnyObject) => {
 
 //   }
 // }
 
 inputElement[formInputType.inputList] = {
-  properties: async (that, cell) => {
+  properties: async (that: stringAnyObject, cell: stringAnyObject) => {
     let properties = base(cell);
     const { input } = cell;
     properties = {
@@ -287,7 +298,7 @@ inputElement[formInputType.inputList] = {
 };
 
 inputElement[formInputType.treeSelectRemote] = {
-  properties: async (that, cell) => {
+  properties: async (that: stringAnyObject, cell: stringAnyObject) => {
     let properties = {
       ...base(cell),
       "ui:widget": "elTreeSelect",
@@ -322,7 +333,7 @@ inputElement[formInputType.treeSelectRemote] = {
 };
 
 inputElement[formInputType.treeSelect] = {
-  properties: async (that, cell) => {
+  properties: async (that: stringAnyObject, cell: stringAnyObject) => {
     const { input } = cell;
     let properties = {
       ...base(cell),
@@ -359,7 +370,7 @@ inputElement[formInputType.treeSelect] = {
 
 // 搜索用searchList
 inputElement[formInputType.searchList] = {
-  properties: async (that, cell) => {
+  properties: async (that: stringAnyObject, cell: stringAnyObject) => {
     const { input } = cell;
     let properties = {
       ...base(cell),
@@ -431,7 +442,7 @@ inputElement[formInputType.searchList] = {
  * @Date: 2022-12-14 14:15:24
  */
 inputElement[formInputType.indexListForSwitch] = {
-  properties: async (that, cell) => {
+  properties: async (that: stringAnyObject, cell: stringAnyObject) => {
     const { input } = cell;
     let properties = {
       ...base(cell),
@@ -517,7 +528,7 @@ inputElement[formInputType.underLine] = {
  * @Date: 2022-12-14 14:15:24
  */
 inputElement[formInputType.button] = {
-  properties: async (that, cell) => {
+  properties: async (that: stringAnyObject, cell: stringAnyObject) => {
     const { input } = cell;
     let properties = {
       ...base(cell),
@@ -567,7 +578,7 @@ inputElement[formInputType.button] = {
  * @Date: 2022-12-14 14:15:24
  */
 inputElement[formInputType.tabSelect] = {
-  properties: async (that, cell) => {
+  properties: async (that: stringAnyObject, cell: stringAnyObject) => {
     const { input } = cell;
     let properties = {
       ...base(cell),
@@ -613,56 +624,56 @@ inputElement[formInputType.tabSelect] = {
   },
 };
 
-inputElement[formInputType.remoteDictSelect] = {
-  properties: async (that, cell) => {
-    const { dictKey } = cell.input;
-    const { getByKey } = useRemoteDictHook();
-    let inputOptions = (await getByKey(dictKey)) as {
-      [key: string]: any;
-    };
-    let properties = {
-      ...base(cell),
-      type: "string",
-      inputOptions,
-      "ui:widget": "SelectWidget",
-      "ui:options": {
-        attrs: {
-          clearable: true,
-        },
-      },
-      enum: Object.keys(inputOptions),
-      enumNames: Object.keys(inputOptions).map((x) => inputOptions[x]),
-    };
-    return properties;
-  },
-};
+// inputElement[formInputType.remoteDictSelect] = {
+//   properties: async (that: stringAnyObject, cell: stringAnyObject) => {
+//     const { dictKey } = cell.input;
+//     const { getByKey } = useRemoteDictHook();
+//     let inputOptions = (await getByKey(dictKey)) as {
+//       [key: string]: any;
+//     };
+//     let properties = {
+//       ...base(cell),
+//       type: "string",
+//       inputOptions,
+//       "ui:widget": "SelectWidget",
+//       "ui:options": {
+//         attrs: {
+//           clearable: true,
+//         },
+//       },
+//       enum: Object.keys(inputOptions),
+//       enumNames: Object.keys(inputOptions).map((x) => inputOptions[x]),
+//     };
+//     return properties;
+//   },
+// };
 
-inputElement[formInputType.uploadFileList] = {
-  properties: async (that, cell) => {
-    const { input } = cell;
-    let properties = {
-      ...base(cell),
-      type: "string",
-      "ui:widget": uploadFileList,
-      "ui:options": {
-        style: {
-          width: "100%",
-          fontWeight: "900",
-        },
-      },
-    } as stringAnyObj;
-    let attrs = {};
-    if (input.inputOptions) attrs = { ...attrs, ...input.inputOptions };
-    if (input.funcInputOptionsLoader)
-      attrs = { ...attrs, ...(await input.funcInputOptionsLoader(that)) };
-    Object.keys(attrs).map((x) => {
-      properties["ui:" + x] = attrs[x];
-    });
-    return properties;
-  },
-};
+// inputElement[formInputType.uploadFileList] = {
+//   properties: async (that: stringAnyObject, cell: stringAnyObject) => {
+//     const { input } = cell;
+//     let properties = {
+//       ...base(cell),
+//       type: "string",
+//       "ui:widget": uploadFileList,
+//       "ui:options": {
+//         style: {
+//           width: "100%",
+//           fontWeight: "900",
+//         },
+//       },
+//     } as stringAnyObj;
+//     let attrs = {};
+//     if (input.inputOptions) attrs = { ...attrs, ...input.inputOptions };
+//     if (input.funcInputOptionsLoader)
+//       attrs = { ...attrs, ...(await input.funcInputOptionsLoader(that)) };
+//     Object.keys(attrs).map((x) => {
+//       properties["ui:" + x] = attrs[x];
+//     });
+//     return properties;
+//   },
+// };
 inputElement[formInputType.cascader] = {
-  properties: async (that, cell) => {
+  properties: async (that: stringAnyObject, cell: stringAnyObject) => {
     const { input } = cell;
     let properties = {
       ...base(cell),
@@ -687,42 +698,37 @@ inputElement[formInputType.cascader] = {
     return properties;
   },
 }
-inputElement[formInputType.richTextArea] = {
-  properties: async (that, cell) => {
-    const { input } = cell;
-    let properties = {
-      ...base(cell),
-      type: "string",
-      "ui:widget": editor,
-      "ui:options": {
-        style: {
-          width: "100%",
-          fontWeight: "900",
-        },
-      },
-    } as stringAnyObj;
-    let attrs = {
-      maxHeight: "400px",
-    };
-    if (input.inputOptions) attrs = { ...attrs, ...input.inputOptions };
-    if (input.funcInputOptionsLoader)
-      attrs = { ...attrs, ...(await input.funcInputOptionsLoader(that)) };
-    Object.keys(attrs).map((x) => {
-      properties["ui:" + x] = attrs[x];
-    });
-    return properties;
-  },
-};
+// inputElement[formInputType.richTextArea] = {
+//   properties: async (that:stringAnyObject, cell:stringAnyObject) => {
+//     const { input } = cell;
+//     let properties = {
+//       ...base(cell),
+//       type: "string",
+//       "ui:widget": editor,
+//       "ui:options": {
+//         style: {
+//           width: "100%",
+//           fontWeight: "900",
+//         },
+//       },
+//     } as stringAnyObj;
+//     let attrs = {
+//       maxHeight: "400px",
+//     };
+//     if (input.inputOptions) attrs = { ...attrs, ...input.inputOptions };
+//     if (input.funcInputOptionsLoader)
+//       attrs = { ...attrs, ...(await input.funcInputOptionsLoader(that)) };
+//     Object.keys(attrs).map((x) => {
+//       properties["ui:" + x] = attrs[x];
+//     });
+//     return properties;
+//   },
+// };
 
-import card from "@/components/basicComponents/grid/module/gridCard/card.vue";
-import { gridCellTemplate } from "@/components/basicComponents/grid/module/dataTemplate";
-import gridDesktop from "@/components/basicComponents/grid";
-import { values } from 'lodash';
-import { getPreUrl } from "@/utils/api/requests";
 
 // 预计接入 griddesktop 展示部分数据
 inputElement[formInputType.gridDesktop] = {
-  properties: async (that, cell) => {
+  properties: async (that: stringAnyObject, cell: stringAnyObject) => {
     const { input } = cell;
     let properties = {
       ...base(cell),
@@ -751,7 +757,7 @@ inputElement[formInputType.gridDesktop] = {
 // 这个组件完全依照组件化方案开发，使用方式就是通过
 // in
 inputElement[formInputType.gridCellMaker] = {
-  properties: async (that, cell) => {
+  properties: async (that: stringAnyObject, cell: stringAnyObject) => {
     const { input } = cell;
     let properties = {
       ...base(cell),

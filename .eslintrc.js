@@ -1,3 +1,9 @@
+/*
+ * @Date: 2023-05-17 13:53:49
+ * @LastEditors: CZH
+ * @LastEditTime: 2023-08-14 17:14:18
+ * @FilePath: /cool-admin-vue/.eslintrc.js
+ */
 module.exports = {
 	root: true,
 	env: {
@@ -23,6 +29,12 @@ module.exports = {
 		"plugin:prettier/recommended"
 	],
 	rules: {
+
+		"@typescript-eslint/explicit-module-boundary-types": "off", // setup()
+		"@typescript-eslint/ban-types": "off",
+		"@typescript-eslint/ban-ts-comment": "off",
+		"@typescript-eslint/no-empty-function": "off",
+		"@typescript-eslint/no-non-null-assertion": "off",
 		"@typescript-eslint/ban-ts-ignore": "off",
 		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/no-explicit-any": "off",
@@ -61,6 +73,21 @@ module.exports = {
 		"vue/attribute-hyphenation": "off",
 		"vue/html-self-closing": "off",
 		"vue/require-default-prop": "off",
-		"vue/v-on-event-hyphenation": "off"
+		"vue/v-on-event-hyphenation": "off",
+		'prefer-const': 'off',
+		'no-explicit-any': 'off',
+		"@typescript-eslint/explicit-module-boundary-types": "off",
+		'@typescript-eslint/ban-types': 'off',
+		'@typescript-eslint/no-explicit-any': 'off',
+		'@typescript-eslint/no-empty-function': 'off',
+		'@typescript-eslint/no-var-requires': 'off',
+		'@typescript-eslint/no-this-alias': 'off',
+		'@typescript-eslint/ban-ts-ignore': 'off',
+		"vue/no-v-html": "off",
+		"vue/require-default-prop": "off",
+		"vue/require-explicit-emits": "off",
+		"vue/multi-word-component-names": "off",
+		"@typescript-eslint/no-explicit-any": "off", // any
+		"no-debugger": "off",
 	}
 };

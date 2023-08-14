@@ -1,8 +1,8 @@
 <!--
  * @Date: 2022-11-21 08:52:56
  * @LastEditors: CZH
- * @LastEditTime: 2023-04-08 19:10:57
- * @FilePath: /configforpagedemo/src/modules/userManage/component/searchTable/drawerForm.vue
+ * @LastEditTime: 2023-08-14 14:14:45
+ * @FilePath: /cool-admin-vue/src/modules/moduleTower/modules/userManage/component/searchTable/drawerForm.vue
 -->
 <template>
   <el-drawer
@@ -107,10 +107,10 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import VueForm from "@lljj/vue3-form-element";
-import { cardOnChangeType } from "@/components/basicComponents/grid/module/dataTemplate";
+import { cardOnChangeType } from "/$/moduleTower/components/grid/module/dataTemplate";
 import { propertiesMaker, uiSchemaMaker } from "./searchTable";
 
-import { deepClone } from "@/components/basicComponents/grid/module/cardApi/deepClone";
+import { deepClone } from "/$/moduleTower/components/grid/module/cardApi/deepClone";
 import { ElDrawer, ElDivider, ElButton } from "element-plus";
 import drawer from "element-plus/es/components/drawer";
 import {
@@ -120,12 +120,12 @@ import {
   showType,
   tableCellTemplate,
   tableCellOptions,
-} from "@/modules/userManage/types";
+} from "/$/moduleTower/modules/userManage/types";
 import drawerForm from "./drawerForm.vue";
-import { isMobile } from "@/utils/Env";
+import { isMobile } from "/$/moduleTower/utils/Env";
 
-import { gridCellTemplate } from "@/components/basicComponents/grid/module/dataTemplate";
-import gridDesktop from "@/components/basicComponents/grid/gridDesktop.vue";
+import { gridCellTemplate } from "/$/moduleTower/components/grid/module/dataTemplate";
+import gridDesktop from "/$/moduleTower/components/grid/gridDesktop.vue";
 
 let formDataForCheck = {};
 export default defineComponent({

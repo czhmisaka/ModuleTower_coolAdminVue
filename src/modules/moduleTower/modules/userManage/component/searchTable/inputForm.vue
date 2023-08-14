@@ -1,8 +1,8 @@
 <!--
  * @Date: 2022-11-11 09:35:29
  * @LastEditors: CZH
- * @LastEditTime: 2023-05-17 16:48:28
- * @FilePath: /configforpagedemo/src/modules/userManage/component/searchTable/inputForm.vue
+ * @LastEditTime: 2023-06-19 18:17:13
+ * @FilePath: /cool-admin-vue/src/modules/moduleTower/modules/userManage/component/searchTable/inputForm.vue
 -->
 <template>
   <div
@@ -100,15 +100,16 @@
 import { defineComponent, h } from "vue";
 import VueForm from "@lljj/vue3-form-element";
 import { propertiesMaker } from "./searchTable";
-import iconCell from "@/components/basicComponents/cell/icon/iconCell.vue";
-import cardBg from "@/components/basicComponents/cell/card/cardBg.vue";
+import iconCell from "/$/moduleTower/components/cell/icon/iconCell.vue";
+import cardBg from "/$/moduleTower/components/cell/card/cardBg.vue";
 import { ElButton, ElDivider, formProps } from "element-plus";
+
 import {
   tableCellTemplate,
   stringAnyObj,
   btnCellTemplate,
-} from "@/modules/userManage/types";
-let interval = null;
+} from "/$/moduleTower/modules/userManage/types";
+let interval: any = null;
 export default defineComponent({
   name: "表单组件",
   props: [

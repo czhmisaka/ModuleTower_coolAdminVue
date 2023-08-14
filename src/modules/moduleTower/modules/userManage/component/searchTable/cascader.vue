@@ -1,11 +1,10 @@
 <!--
  * @Date: 2023-03-20 14:36:17
  * @LastEditors: CZH
- * @LastEditTime: 2023-05-17 14:57:17
- * @FilePath: /configforpagedemo/src/modules/userManage/component/searchTable/cascader.vue
+ * @LastEditTime: 2023-08-14 14:16:20
+ * @FilePath: /cool-admin-vue/src/modules/moduleTower/modules/userManage/component/searchTable/cascader.vue
 -->
 <script setup lang="ts">
-import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import {
   onBeforeUnmount,
   ref,
@@ -14,16 +13,7 @@ import {
   defineEmits,
   watchEffect,
 } from "vue";
-import cardBg from "@/components/basicComponents/cell/card/cardBg.vue";
-import { getDownLoadRequestHeaders } from "@/utils/api/user/header";
-import { ElMessage, UploadProps, UploadUserFile } from "element-plus";
-import { post, get, del, download as Download } from "@/utils/api/requests";
 import { ElLoading } from "element-plus";
-import { loadEnv } from "@build/index";
-
-defineOptions({
-  name: "uploadFileList",
-});
 const props = defineProps({
   optionsList: {
     type: Array,
@@ -64,15 +54,6 @@ const beforeUpload = (e) => {
   loading.value = ElLoading.service({
     fullscreen: true,
     text: "正在上传中",
-  });
-};
-
-const success = (e) => {};
-
-const download = (file) => {
-  Download("/cult/sysFile/download", file.name, {
-    fileName: file.name,
-    fileUrl: file.url,
   });
 };
 

@@ -1,8 +1,8 @@
 <!--
  * @Date: 2022-05-30 10:48:53
  * @LastEditors: CZH
- * @LastEditTime: 2023-02-15 19:53:23
- * @FilePath: /configforpagedemo/src/components/basicComponents/grid/module/baseToolComponents/componentsListModal.vue
+ * @LastEditTime: 2023-06-19 16:27:29
+ * @FilePath: /cool-admin-vue/src/modules/moduleTower/components/grid/module/baseToolComponents/componentsListModal.vue
 -->
 
 <template>
@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { componentLists } from "@/components/basicComponents/grid/module/gridCard/module/componentLists";
+import { componentLists } from "../gridCard/module/componentLists";
 import componentsIconCard from "./componentsIconCard.vue";
 import {
   cardOnChangeType,

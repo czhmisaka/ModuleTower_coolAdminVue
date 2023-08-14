@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import gridDesktop from "@/components/basicComponents/grid/gridDesktop.vue";
+import gridDesktop from "/$/moduleTower/components/grid/gridDesktop.vue";
 import { defineComponent } from "vue";
 import { PageConfig } from "./PageConfigData/index";
 

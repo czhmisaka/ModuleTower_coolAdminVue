@@ -88,14 +88,14 @@
 
 <script lang="ts">
 import { defineComponent, watch } from "vue";
-import cardBg from "@/components/basicComponents/cell/card/cardBg.vue";
-import { setData } from "@/components/basicComponents/grid/module/cardApi/index";
+import cardBg from "/$/moduleTower/components/cell/card/cardBg.vue";
+import { setData } from "/$/moduleTower/components/grid/module/cardApi/index";
 import {
   componentInfo,
   inputType,
   propInfo,
   gridSizeMaker,
-} from "@/components/basicComponents/grid/module/dataTemplate";
+} from "/$/moduleTower/components/grid/module/dataTemplate";
 import { btnCellTemplate, btnActionTemplate, showType, stringAnyObj } from "../types";
 
 enum sizeTem {

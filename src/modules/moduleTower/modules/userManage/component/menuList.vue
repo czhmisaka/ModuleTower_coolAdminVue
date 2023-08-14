@@ -1,8 +1,8 @@
 <!--
  * @Date: 2022-11-09 11:19:57
  * @LastEditors: CZH
- * @LastEditTime: 2023-03-27 20:09:02
- * @FilePath: /configforpagedemo/src/modules/userManage/component/menuList.vue
+ * @LastEditTime: 2023-06-19 17:04:51
+ * @FilePath: /cool-admin-vue/src/modules/moduleTower/modules/userManage/component/menuList.vue
 -->
 <template>
   <cardBg
@@ -82,14 +82,14 @@
 
 <script lang="ts">
 import { defineComponent, watch } from "vue";
-import cardBg from "@/components/basicComponents/cell/card/cardBg.vue";
-import { setData } from "@/components/basicComponents/grid/module/cardApi/index";
+import cardBg from "/$/moduleTower/components/cell/card/cardBg.vue";
+import { setData } from "/$/moduleTower/components/grid/module/cardApi";
 import {
   componentInfo,
   inputType,
   propInfo,
   gridSizeMaker,
-} from "@/components/basicComponents/grid/module/dataTemplate";
+} from "/$/moduleTower/components/grid/module/dataTemplate";
 import { btnCellTemplate, btnActionTemplate, showType, stringAnyObj } from "../types";
 
 const random = Math.floor(Math.random() * 10000000);
@@ -143,7 +143,7 @@ export default defineComponent({
 
   baseProps: {
     clickItemDetailFunc: false,
-    treeDataFunc: (that, searchData) => {
+    treeDataFunc: (that: any, searchData: any) => {
       let num = 0;
       let testData = (str = "") => {
         return { label: "Hello World _ " + str, value: "测试数据" + num++ };
@@ -202,7 +202,7 @@ export default defineComponent({
      * @Date: 2022-11-09 16:55:30
      * @param {*} node
      */
-    nodeClick(node) {
+    nodeClick(node: any) {
       let outputKey = this.outputKey || "menuList_output";
       let data = {};
       const that = this;
@@ -231,12 +231,12 @@ export default defineComponent({
       }, 100);
     },
 
-    async search(e) {
+    async search(e: any) {
       const that = this;
       let res = await this.treeDataFunc(that, this.selectedKey);
       this.searchResult =
         res.length > 1
-          ? res.reduce((pre, item) => {
+          ? res.reduce((pre: string | any[], item: { children: any[] }) => {
               let children = [];
               if (item.children) {
                 children = item.children;
@@ -257,7 +257,7 @@ export default defineComponent({
      * @Date: 2023-01-28 15:08:50
      * @param {*} data
      */
-    async clickItemDetail(data) {
+    async clickItemDetail(data: any) {
       const that = this;
       if (this.clickItemDetailFunc) this.clickItemDetailFunc(that, data);
     },

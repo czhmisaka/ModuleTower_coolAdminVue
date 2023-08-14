@@ -1,7 +1,7 @@
 /*
  * @Date: 2022-08-15 23:37:57
  * @LastEditors: CZH
- * @LastEditTime: 2023-05-29 00:11:20
+ * @LastEditTime: 2023-08-14 14:26:04
  * @FilePath: /cool-admin-vue/src/modules/moduleTower/modules/userManage/PageConfigData/index.ts
  */
 
@@ -27,7 +27,13 @@ const base = {
 	}
 };
 import { desktopDataTemplate } from "../types";
-const pageConfig = {} as { [key: string]: desktopDataTemplate };
+import { mainDesktop } from "./main";
+const pageConfig = {
+	mainDesktop: {
+		...base,
+		desktopData: mainDesktop
+	}
+} as { [key: string]: desktopDataTemplate };
 
 let Page = {} as {
 	[key: string]: desktopDataTemplate;
