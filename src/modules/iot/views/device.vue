@@ -13,12 +13,9 @@
 					</p>
 				</div>
 
-				<div
-					class="status"
-					:class="{
-						'is-on': item.status
-					}"
-				>
+				<div class="status" :class="{
+					'is-on': item.status
+				}">
 					{{ item.status ? "在线" : "离线" }}
 				</div>
 			</div>
@@ -30,32 +27,20 @@
 				<el-scrollbar class="list" :ref="setRefs('scrollbar')" @scroll="onScroll">
 					<ul>
 						<li v-for="(item, index) in list" :key="index">
-							<div
-								class="item"
-								:class="{
-									'is-right': item.type == 0
-								}"
-							>
+							<div class="item" :class="{
+								'is-right': item.type == 0
+							}">
 								<div class="icon">
-									<cl-avatar
-										:size="36"
-										shape="square"
-										:src="
-											item.type == 0
-												? user.info?.headImg
-												: ViewGroup?.selected?.icon || Icon
-										"
-									/>
+									<cl-avatar :size="36" shape="square" :src="item.type == 0
+										? user.info?.headImg
+										: ViewGroup?.selected?.icon || Icon
+										" />
 								</div>
 
-								<div
-									class="det"
-									@contextmenu="
-										(e) => {
-											onContextMenu(e, item);
-										}
-									"
-								>
+								<div class="det" @contextmenu="(e) => {
+									onContextMenu(e, item);
+								}
+									">
 									<div class="content">
 										<span class="is-text">
 											{{ item.data }}
@@ -78,17 +63,10 @@
 				<!-- 底部 -->
 				<div class="footer">
 					<div class="input">
-						<el-input
-							v-model="value"
-							type="textarea"
-							:rows="4"
-							resize="none"
-							:autosize="{
-								minRows: 4,
-								maxRows: 10
-							}"
-							placeholder="输入内容"
-						/>
+						<el-input v-model="value" type="textarea" :rows="4" resize="none" :autosize="{
+							minRows: 4,
+							maxRows: 10
+						}" placeholder="输入内容" />
 						<el-button type="success" @click="send" :disabled="!value">发送</el-button>
 					</div>
 				</div>
@@ -114,6 +92,9 @@ const { service, refs, setRefs, mitt } = useCool();
 const { copy } = useClipboard();
 const { user } = useBase();
 const mqtt = useMqtt();
+
+
+// const res = await service.
 
 const { ViewGroup } = useViewGroup({
 	label: "设备",
@@ -193,6 +174,8 @@ let loaded = false;
 
 // 刷新
 async function refresh(params?: any) {
+	const res = await service.iot.mqtt.config()
+	console.log(res, 'asd')
 	loading.value = true;
 
 	Object.assign(reqParams, {
@@ -389,7 +372,7 @@ onBeforeRouteLeave(() => {
 		background-color: var(--el-fill-color-lighter);
 
 		ul {
-			& > li {
+			&>li {
 				list-style: none;
 
 				.item {
